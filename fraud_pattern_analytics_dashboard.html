@@ -1,0 +1,839 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fraud Pattern Analytics Dashboard - ShipGuard Analytics</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fshipguard1633back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
+</head>
+<body class="bg-background text-text-primary min-h-screen">
+    <!-- Navigation Header -->
+    <nav class="bg-surface border-b border-primary-600 px-6 py-4">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-8">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <svg class="w-8 h-8 text-secondary-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                    <span class="text-xl font-semibold text-text-primary">ShipGuard Analytics</span>
+                </div>
+                
+                <!-- Navigation Links -->
+                <div class="hidden md:flex space-x-6">
+                    <a href="real_time_fraud_monitoring_command_center.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md transition-colors">
+                        Command Center
+                    </a>
+                    <a href="fraud_pattern_analytics_dashboard.html" class="text-secondary-400 hover:text-secondary-300 px-3 py-2 rounded-md bg-secondary-900/20 border border-secondary-700">
+                        Pattern Analytics
+                    </a>
+                </div>
+            </div>
+            
+            <!-- User Profile & Settings -->
+            <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-2">
+                    <div class="w-2 h-2 bg-success-500 rounded-full pulse-alert"></div>
+                    <span class="text-sm text-text-secondary">System Online</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Risk Analyst" class="w-8 h-8 rounded-full object-cover" onerror="this.src='https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'; this.onerror=null;" />
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Header Controls -->
+    <section class="bg-surface border-b border-primary-600 px-6 py-4">
+        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
+            <div class="flex items-center space-x-4">
+                <h1 class="text-2xl font-semibold text-text-primary">Fraud Pattern Analytics</h1>
+                <div class="flex items-center space-x-2">
+                    <svg class="w-5 h-5 text-secondary-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M3,3H21C22.05,3 23,3.95 23,5V19C23,20.05 22.05,21 21,21H3C1.95,21 1,20.05 1,19V5C1,3.95 1.95,3 3,3M3,5V8H21V5H3M3,10V19H8V10H3M10,10V19H21V10H10Z"/>
+                    </svg>
+                    <span class="text-secondary-400 font-medium">Advanced Analytics Mode</span>
+                </div>
+            </div>
+            
+            <!-- Control Panel -->
+            <div class="flex flex-wrap items-center gap-4">
+                <!-- Date Range Picker -->
+                <div class="flex items-center space-x-2">
+                    <svg class="w-4 h-4 text-text-secondary" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M19,3H18V1H16V3H8V1H6V3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M19,19H5V8H19V19Z"/>
+                    </svg>
+                    <select class="bg-primary-700 border border-primary-600 text-text-primary px-3 py-2 rounded-md text-sm focus:outline-none focus:border-secondary-500">
+                        <option value="7">Last 7 Days</option>
+                        <option value="30" selected>Last 30 Days</option>
+                        <option value="90">Last 90 Days</option>
+                        <option value="custom">Custom Range</option>
+                    </select>
+                </div>
+
+                <!-- Route Filter -->
+                <div class="flex items-center space-x-2">
+                    <svg class="w-4 h-4 text-text-secondary" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12,2C15.31,2 18,4.66 18,7.95C18,12.41 12,19 12,19C12,19 6,12.41 6,7.95C6,4.66 8.69,2 12,2M12,6A2,2 0 0,0 10,8A2,2 0 0,0 12,10A2,2 0 0,0 14,8A2,2 0 0,0 12,6Z"/>
+                    </svg>
+                    <select class="bg-primary-700 border border-primary-600 text-text-primary px-3 py-2 rounded-md text-sm focus:outline-none focus:border-secondary-500">
+                        <option value="all">All Routes</option>
+                        <option value="asia-pacific">Asia-Pacific</option>
+                        <option value="europe">Europe</option>
+                        <option value="americas">Americas</option>
+                    </select>
+                </div>
+
+                <!-- Carrier Filter -->
+                <div class="flex items-center space-x-2">
+                    <svg class="w-4 h-4 text-text-secondary" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M18,8C18,6.31 16.69,5 15,5H9C7.31,5 6,6.31 6,8H4C2.89,8 2,8.89 2,10V19C2,20.11 2.89,21 4,21H20C21.11,21 22,20.11 22,19V10C22,8.89 21.11,8 20,8H18M9,7H15C15.55,7 16,7.45 16,8H8C8,7.45 8.45,7 9,7Z"/>
+                    </svg>
+                    <select class="bg-primary-700 border border-primary-600 text-text-primary px-3 py-2 rounded-md text-sm focus:outline-none focus:border-secondary-500">
+                        <option value="all">All Carriers</option>
+                        <option value="maersk">Maersk Line</option>
+                        <option value="msc">MSC</option>
+                        <option value="cosco">COSCO</option>
+                    </select>
+                </div>
+
+                <!-- Comparison Toggle -->
+                <button class="flex items-center space-x-2 bg-secondary-600 hover:bg-secondary-700 text-white px-4 py-2 rounded-md transition-colors">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M19,3H5C3.9,3 3,3.9 3,5V19C3,20.1 3.9,21 5,21H19C20.1,21 21,20.1 21,19V5C21,3.9 20.1,3 19,3M19,19H5V5H19V19M17,17H15V10H17V17M13,17H11V7H13V17M9,17H7V13H9V17Z"/>
+                    </svg>
+                    <span class="text-sm">Compare Periods</span>
+                </button>
+
+                <!-- Bookmark & Export -->
+                <div class="flex items-center space-x-2">
+                    <button class="p-2 bg-surface hover:bg-primary-600 text-text-secondary hover:text-text-primary rounded-md transition-colors border border-primary-600">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M17,3H7A2,2 0 0,0 5,5V21L12,18L19,21V5C19,3.89 18.1,3 17,3Z"/>
+                        </svg>
+                    </button>
+                    <button class="p-2 bg-surface hover:bg-primary-600 text-text-secondary hover:text-text-primary rounded-md transition-colors border border-primary-600">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Primary Metrics Strip -->
+    <section class="px-6 py-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+            <!-- Fraud Detection Rate -->
+            <div class="bg-surface rounded-lg p-6 border border-primary-600 hover-elevation">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-success-900/20 rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5 text-success-500" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M10,17L6,13L7.41,11.59L10,14.17L16.59,7.58L18,9L10,17Z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-medium text-text-secondary">Detection Rate</h3>
+                            <p class="text-2xl font-semibold text-text-primary">94.7%</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-success-500 text-sm font-medium">+2.3%</span>
+                        <div class="w-16 h-8 mt-1">
+                            <svg class="w-full h-full" viewBox="0 0 64 32">
+                                <polyline fill="none" stroke="#10B981" stroke-width="2" points="0,25 16,20 32,18 48,15 64,12"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- False Positive Rate -->
+            <div class="bg-surface rounded-lg p-6 border border-primary-600 hover-elevation">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-warning-900/20 rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5 text-warning-500" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,7H13V13H11V7M11,15H13V17H11V15Z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-medium text-text-secondary">False Positive Rate</h3>
+                            <p class="text-2xl font-semibold text-text-primary">3.2%</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-success-500 text-sm font-medium">-0.8%</span>
+                        <div class="w-16 h-8 mt-1">
+                            <svg class="w-full h-full" viewBox="0 0 64 32">
+                                <polyline fill="none" stroke="#F59E0B" stroke-width="2" points="0,15 16,18 32,20 48,22 64,25"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Average Resolution Time -->
+            <div class="bg-surface rounded-lg p-6 border border-primary-600 hover-elevation">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-secondary-900/20 rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5 text-secondary-500" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.2,16.2L11,13V7H12.5V12.2L17,14.7L16.2,16.2Z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-medium text-text-secondary">Avg Resolution Time</h3>
+                            <p class="text-2xl font-semibold text-text-primary">4.2h</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-success-500 text-sm font-medium">-15min</span>
+                        <div class="w-16 h-8 mt-1">
+                            <svg class="w-full h-full" viewBox="0 0 64 32">
+                                <polyline fill="none" stroke="#3B82F6" stroke-width="2" points="0,20 16,18 32,15 48,12 64,10"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pattern Accuracy -->
+            <div class="bg-surface rounded-lg p-6 border border-primary-600 hover-elevation">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-accent-900/20 rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M3,3H21C22.05,3 23,3.95 23,5V19C23,20.05 22.05,21 21,21H3C1.95,21 1,20.05 1,19V5C1,3.95 1.95,3 3,3M3,5V8H21V5H3M3,10V19H8V10H3M10,10V19H21V10H10Z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-medium text-text-secondary">Pattern Accuracy</h3>
+                            <p class="text-2xl font-semibold text-text-primary">91.8%</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-success-500 text-sm font-medium">+4.1%</span>
+                        <div class="w-16 h-8 mt-1">
+                            <svg class="w-full h-full" viewBox="0 0 64 32">
+                                <polyline fill="none" stroke="#F59E0B" stroke-width="2" points="0,28 16,24 32,20 48,16 64,12"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Analytics Content -->
+    <section class="px-6 pb-6">
+        <div class="grid grid-cols-1 xl:grid-cols-12 gap-6">
+            <!-- Main Analytics Panel (8 cols) -->
+            <div class="xl:col-span-8 space-y-6">
+                <!-- Fraud Incidents & Detection Accuracy Chart -->
+                <div class="bg-surface rounded-lg border border-primary-600">
+                    <div class="px-6 py-4 border-b border-primary-600">
+                        <div class="flex items-center justify-between">
+                            <h2 class="text-lg font-semibold text-text-primary flex items-center space-x-2">
+                                <svg class="w-5 h-5 text-secondary-500" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M3,3H21C22.05,3 23,3.95 23,5V19C23,20.05 22.05,21 21,21H3C1.95,21 1,20.05 1,19V5C1,3.95 1.95,3 3,3M3,5V8H21V5H3M3,10V19H8V10H3M10,10V19H21V10H10Z"/>
+                                </svg>
+                                <span>Fraud Incidents vs Detection Accuracy</span>
+                            </h2>
+                            <div class="flex items-center space-x-2">
+                                <button class="px-3 py-1 text-xs bg-secondary-600 text-white rounded-md hover:bg-secondary-700 transition-colors">
+                                    Drill Down
+                                </button>
+                                <button class="px-3 py-1 text-xs bg-surface text-text-secondary rounded-md hover:bg-primary-600 transition-colors">
+                                    Export
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="relative h-80">
+                            <!-- Chart Container -->
+                            <div class="w-full h-full bg-primary-900/50 rounded-lg flex items-center justify-center relative overflow-hidden">
+                                <!-- Y-axis Labels -->
+                                <div class="absolute left-2 top-0 h-full flex flex-col justify-between text-xs text-text-secondary py-4">
+                                    <span>100%</span>
+                                    <span>75%</span>
+                                    <span>50%</span>
+                                    <span>25%</span>
+                                    <span>0%</span>
+                                </div>
+                                
+                                <!-- Chart Bars and Line -->
+                                <div class="flex items-end justify-center space-x-4 h-full px-12 py-8">
+                                    <!-- Week 1 -->
+                                    <div class="flex flex-col items-center space-y-2">
+                                        <div class="w-8 h-32 bg-error-600 rounded-t-sm relative">
+                                            <div class="absolute -top-2 w-2 h-2 bg-secondary-500 rounded-full left-3"></div>
+                                        </div>
+                                        <span class="text-xs text-text-secondary">W1</span>
+                                    </div>
+                                    
+                                    <!-- Week 2 -->
+                                    <div class="flex flex-col items-center space-y-2">
+                                        <div class="w-8 h-40 bg-error-600 rounded-t-sm relative">
+                                            <div class="absolute -top-2 w-2 h-2 bg-secondary-500 rounded-full left-3"></div>
+                                        </div>
+                                        <span class="text-xs text-text-secondary">W2</span>
+                                    </div>
+                                    
+                                    <!-- Week 3 -->
+                                    <div class="flex flex-col items-center space-y-2">
+                                        <div class="w-8 h-28 bg-error-600 rounded-t-sm relative">
+                                            <div class="absolute -top-2 w-2 h-2 bg-secondary-500 rounded-full left-3"></div>
+                                        </div>
+                                        <span class="text-xs text-text-secondary">W3</span>
+                                    </div>
+                                    
+                                    <!-- Week 4 -->
+                                    <div class="flex flex-col items-center space-y-2">
+                                        <div class="w-8 h-36 bg-error-600 rounded-t-sm relative">
+                                            <div class="absolute -top-2 w-2 h-2 bg-secondary-500 rounded-full left-3"></div>
+                                        </div>
+                                        <span class="text-xs text-text-secondary">W4</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Legend -->
+                                <div class="absolute bottom-4 right-4 bg-background/80 backdrop-blur-sm rounded-lg p-3">
+                                    <div class="space-y-2 text-sm">
+                                        <div class="flex items-center space-x-2">
+                                            <div class="w-3 h-3 bg-error-600 rounded"></div>
+                                            <span class="text-text-primary">Fraud Incidents</span>
+                                        </div>
+                                        <div class="flex items-center space-x-2">
+                                            <div class="w-3 h-3 bg-secondary-500 rounded-full"></div>
+                                            <span class="text-text-primary">Detection Accuracy</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Fraud Pattern Heat Map -->
+                <div class="bg-surface rounded-lg border border-primary-600">
+                    <div class="px-6 py-4 border-b border-primary-600">
+                        <div class="flex items-center justify-between">
+                            <h2 class="text-lg font-semibold text-text-primary flex items-center space-x-2">
+                                <svg class="w-5 h-5 text-warning-500" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12,2C15.31,2 18,4.66 18,7.95C18,12.41 12,19 12,19C12,19 6,12.41 6,7.95C6,4.66 8.69,2 12,2M12,6A2,2 0 0,0 10,8A2,2 0 0,0 12,10A2,2 0 0,0 14,8A2,2 0 0,0 12,6Z"/>
+                                </svg>
+                                <span>Fraud Pattern Correlation Heat Map</span>
+                            </h2>
+                            <div class="flex items-center space-x-2">
+                                <button class="px-3 py-1 text-xs bg-surface text-text-secondary rounded-md hover:bg-primary-600 transition-colors">
+                                    Configure
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="grid grid-cols-6 gap-1">
+                            <!-- Heat Map Grid -->
+                            <div class="text-xs text-text-secondary p-2"></div>
+                            <div class="text-xs text-text-secondary p-2 text-center">Route</div>
+                            <div class="text-xs text-text-secondary p-2 text-center">Time</div>
+                            <div class="text-xs text-text-secondary p-2 text-center">Value</div>
+                            <div class="text-xs text-text-secondary p-2 text-center">Carrier</div>
+                            <div class="text-xs text-text-secondary p-2 text-center">Origin</div>
+                            
+                            <!-- Row 1 -->
+                            <div class="text-xs text-text-secondary p-2">Route</div>
+                            <div class="bg-success-600 p-2 rounded text-center text-xs cursor-pointer hover:bg-success-500 transition-colors" title="Low Correlation: 0.12">0.12</div>
+                            <div class="bg-warning-600 p-2 rounded text-center text-xs cursor-pointer hover:bg-warning-500 transition-colors" title="Medium Correlation: 0.67">0.67</div>
+                            <div class="bg-error-600 p-2 rounded text-center text-xs cursor-pointer hover:bg-error-500 transition-colors" title="High Correlation: 0.89">0.89</div>
+                            <div class="bg-warning-600 p-2 rounded text-center text-xs cursor-pointer hover:bg-warning-500 transition-colors" title="Medium Correlation: 0.54">0.54</div>
+                            <div class="bg-success-600 p-2 rounded text-center text-xs cursor-pointer hover:bg-success-500 transition-colors" title="Low Correlation: 0.23">0.23</div>
+                            
+                            <!-- Row 2 -->
+                            <div class="text-xs text-text-secondary p-2">Time</div>
+                            <div class="bg-warning-600 p-2 rounded text-center text-xs cursor-pointer hover:bg-warning-500 transition-colors" title="Medium Correlation: 0.67">0.67</div>
+                            <div class="bg-success-600 p-2 rounded text-center text-xs cursor-pointer hover:bg-success-500 transition-colors" title="Low Correlation: 0.15">0.15</div>
+                            <div class="bg-error-600 p-2 rounded text-center text-xs cursor-pointer hover:bg-error-500 transition-colors" title="High Correlation: 0.78">0.78</div>
+                            <div class="bg-warning-600 p-2 rounded text-center text-xs cursor-pointer hover:bg-warning-500 transition-colors" title="Medium Correlation: 0.45">0.45</div>
+                            <div class="bg-success-600 p-2 rounded text-center text-xs cursor-pointer hover:bg-success-500 transition-colors" title="Low Correlation: 0.31">0.31</div>
+                            
+                            <!-- Row 3 -->
+                            <div class="text-xs text-text-secondary p-2">Value</div>
+                            <div class="bg-error-600 p-2 rounded text-center text-xs cursor-pointer hover:bg-error-500 transition-colors" title="High Correlation: 0.89">0.89</div>
+                            <div class="bg-error-600 p-2 rounded text-center text-xs cursor-pointer hover:bg-error-500 transition-colors" title="High Correlation: 0.78">0.78</div>
+                            <div class="bg-success-600 p-2 rounded text-center text-xs cursor-pointer hover:bg-success-500 transition-colors" title="Low Correlation: 0.09">0.09</div>
+                            <div class="bg-error-600 p-2 rounded text-center text-xs cursor-pointer hover:bg-error-500 transition-colors" title="High Correlation: 0.92">0.92</div>
+                            <div class="bg-warning-600 p-2 rounded text-center text-xs cursor-pointer hover:bg-warning-500 transition-colors" title="Medium Correlation: 0.56">0.56</div>
+                            
+                            <!-- Row 4 -->
+                            <div class="text-xs text-text-secondary p-2">Carrier</div>
+                            <div class="bg-warning-600 p-2 rounded text-center text-xs cursor-pointer hover:bg-warning-500 transition-colors" title="Medium Correlation: 0.54">0.54</div>
+                            <div class="bg-warning-600 p-2 rounded text-center text-xs cursor-pointer hover:bg-warning-500 transition-colors" title="Medium Correlation: 0.45">0.45</div>
+                            <div class="bg-error-600 p-2 rounded text-center text-xs cursor-pointer hover:bg-error-500 transition-colors" title="High Correlation: 0.92">0.92</div>
+                            <div class="bg-success-600 p-2 rounded text-center text-xs cursor-pointer hover:bg-success-500 transition-colors" title="Low Correlation: 0.18">0.18</div>
+                            <div class="bg-warning-600 p-2 rounded text-center text-xs cursor-pointer hover:bg-warning-500 transition-colors" title="Medium Correlation: 0.63">0.63</div>
+                            
+                            <!-- Row 5 -->
+                            <div class="text-xs text-text-secondary p-2">Origin</div>
+                            <div class="bg-success-600 p-2 rounded text-center text-xs cursor-pointer hover:bg-success-500 transition-colors" title="Low Correlation: 0.23">0.23</div>
+                            <div class="bg-success-600 p-2 rounded text-center text-xs cursor-pointer hover:bg-success-500 transition-colors" title="Low Correlation: 0.31">0.31</div>
+                            <div class="bg-warning-600 p-2 rounded text-center text-xs cursor-pointer hover:bg-warning-500 transition-colors" title="Medium Correlation: 0.56">0.56</div>
+                            <div class="bg-warning-600 p-2 rounded text-center text-xs cursor-pointer hover:bg-warning-500 transition-colors" title="Medium Correlation: 0.63">0.63</div>
+                            <div class="bg-success-600 p-2 rounded text-center text-xs cursor-pointer hover:bg-success-500 transition-colors" title="Low Correlation: 0.11">0.11</div>
+                        </div>
+                        
+                        <!-- Heat Map Legend -->
+                        <div class="mt-4 flex items-center justify-center space-x-6">
+                            <div class="flex items-center space-x-2">
+                                <div class="w-4 h-4 bg-success-600 rounded"></div>
+                                <span class="text-sm text-text-secondary">Low (0.0-0.4)</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-4 h-4 bg-warning-600 rounded"></div>
+                                <span class="text-sm text-text-secondary">Medium (0.4-0.7)</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-4 h-4 bg-error-600 rounded"></div>
+                                <span class="text-sm text-text-secondary">High (0.7-1.0)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel (4 cols) -->
+            <div class="xl:col-span-4 space-y-6">
+                <!-- Top Fraud Vectors -->
+                <div class="bg-surface rounded-lg border border-primary-600">
+                    <div class="px-6 py-4 border-b border-primary-600">
+                        <h2 class="text-lg font-semibold text-text-primary flex items-center space-x-2">
+                            <svg class="w-5 h-5 text-error-500" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M13,14H11V10H13M13,18H11V16H13M1,21H23L12,2L1,21Z"/>
+                            </svg>
+                            <span>Top Fraud Vectors</span>
+                        </h2>
+                    </div>
+                    <div class="divide-y divide-primary-600">
+                        <!-- Vector 1 -->
+                        <div class="px-6 py-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-medium text-text-primary">Document Falsification</span>
+                                <span class="text-error-500 font-semibold">HIGH</span>
+                            </div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm text-text-secondary">Frequency: 342 cases</span>
+                                <span class="text-sm text-text-secondary">Impact: $2.1M</span>
+                            </div>
+                            <div class="w-full bg-primary-700 rounded-full h-2">
+                                <div class="bg-error-500 h-2 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Vector 2 -->
+                        <div class="px-6 py-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-medium text-text-primary">Route Manipulation</span>
+                                <span class="text-warning-500 font-semibold">MEDIUM</span>
+                            </div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm text-text-secondary">Frequency: 187 cases</span>
+                                <span class="text-sm text-text-secondary">Impact: $890K</span>
+                            </div>
+                            <div class="w-full bg-primary-700 rounded-full h-2">
+                                <div class="bg-warning-500 h-2 rounded-full" style="width: 65%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Vector 3 -->
+                        <div class="px-6 py-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-medium text-text-primary">Identity Theft</span>
+                                <span class="text-warning-500 font-semibold">MEDIUM</span>
+                            </div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm text-text-secondary">Frequency: 156 cases</span>
+                                <span class="text-sm text-text-secondary">Impact: $1.2M</span>
+                            </div>
+                            <div class="w-full bg-primary-700 rounded-full h-2">
+                                <div class="bg-warning-500 h-2 rounded-full" style="width: 55%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Vector 4 -->
+                        <div class="px-6 py-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-medium text-text-primary">Cargo Substitution</span>
+                                <span class="text-secondary-500 font-semibold">LOW</span>
+                            </div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm text-text-secondary">Frequency: 89 cases</span>
+                                <span class="text-sm text-text-secondary">Impact: $450K</span>
+                            </div>
+                            <div class="w-full bg-primary-700 rounded-full h-2">
+                                <div class="bg-secondary-500 h-2 rounded-full" style="width: 35%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Vector 5 -->
+                        <div class="px-6 py-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-medium text-text-primary">Payment Fraud</span>
+                                <span class="text-success-500 font-semibold">LOW</span>
+                            </div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm text-text-secondary">Frequency: 43 cases</span>
+                                <span class="text-sm text-text-secondary">Impact: $210K</span>
+                            </div>
+                            <div class="w-full bg-primary-700 rounded-full h-2">
+                                <div class="bg-success-500 h-2 rounded-full" style="width: 20%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pattern Insights -->
+                <div class="bg-surface rounded-lg border border-primary-600">
+                    <div class="px-6 py-4 border-b border-primary-600">
+                        <h2 class="text-lg font-semibold text-text-primary">Pattern Insights</h2>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-2 h-2 bg-secondary-500 rounded-full mt-2"></div>
+                            <div>
+                                <p class="text-sm text-text-primary font-medium">Peak Fraud Hours</p>
+                                <p class="text-xs text-text-secondary">Most incidents occur between 2-4 AM UTC, suggesting automated attacks</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-3">
+                            <div class="w-2 h-2 bg-warning-500 rounded-full mt-2"></div>
+                            <div>
+                                <p class="text-sm text-text-primary font-medium">Geographic Clustering</p>
+                                <p class="text-xs text-text-secondary">67% of cases originate from 3 specific port regions</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-3">
+                            <div class="w-2 h-2 bg-error-500 rounded-full mt-2"></div>
+                            <div>
+                                <p class="text-sm text-text-primary font-medium">Seasonal Trends</p>
+                                <p class="text-xs text-text-secondary">40% increase in fraud attempts during holiday shipping seasons</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-3">
+                            <div class="w-2 h-2 bg-success-500 rounded-full mt-2"></div>
+                            <div>
+                                <p class="text-sm text-text-primary font-medium">ML Model Performance</p>
+                                <p class="text-xs text-text-secondary">Detection accuracy improved 15% with latest algorithm update</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="bg-surface rounded-lg border border-primary-600">
+                    <div class="px-6 py-4 border-b border-primary-600">
+                        <h2 class="text-lg font-semibold text-text-primary">Quick Actions</h2>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <button class="w-full bg-secondary-600 hover:bg-secondary-700 text-white px-4 py-3 rounded-lg transition-colors flex items-center justify-center space-x-2">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                            </svg>
+                            <span>Generate Report</span>
+                        </button>
+                        
+                        <button class="w-full bg-warning-600 hover:bg-warning-700 text-white px-4 py-3 rounded-lg transition-colors flex items-center justify-center space-x-2">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"/>
+                            </svg>
+                            <span>Deep Dive Analysis</span>
+                        </button>
+                        
+                        <button class="w-full bg-surface hover:bg-primary-600 text-text-primary px-4 py-3 rounded-lg transition-colors border border-primary-600 flex items-center justify-center space-x-2">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z"/>
+                            </svg>
+                            <span>Configure Alerts</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Case Investigation Table -->
+    <section class="px-6 pb-6">
+        <div class="bg-surface rounded-lg border border-primary-600">
+            <div class="px-6 py-4 border-b border-primary-600">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-lg font-semibold text-text-primary flex items-center space-x-2">
+                        <svg class="w-5 h-5 text-secondary-500" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M3,3H21C22.05,3 23,3.95 23,5V19C23,20.05 22.05,21 21,21H3C1.95,21 1,20.05 1,19V5C1,3.95 1.95,3 3,3M3,5V8H21V5H3M3,10V19H8V10H3M10,10V19H21V10H10Z"/>
+                        </svg>
+                        <span>Case Investigation Details</span>
+                    </h2>
+                    <div class="flex items-center space-x-2">
+                        <button class="px-3 py-1 text-xs bg-secondary-600 text-white rounded-md hover:bg-secondary-700 transition-colors">
+                            Export CSV
+                        </button>
+                        <button class="px-3 py-1 text-xs bg-surface text-text-secondary rounded-md hover:bg-primary-600 transition-colors">
+                            Filter
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Table -->
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-primary-800">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">Case ID</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">Date</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">Fraud Type</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">Risk Score</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">Impact</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-primary-600">
+                        <!-- Case 1 -->
+                        <tr class="hover:bg-primary-800/50 transition-colors">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="font-mono text-sm text-secondary-400">FC-2025-001847</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
+                                Sep 18, 2025
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-primary">
+                                Document Falsification
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="text-error-400 font-semibold">92/100</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="bg-warning-900/20 text-warning-400 px-2 py-1 rounded-full text-xs">Under Investigation</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-primary">
+                                $45,200
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                <button class="text-secondary-400 hover:text-secondary-300 mr-3">View</button>
+                                <button class="text-warning-400 hover:text-warning-300">Update</button>
+                            </td>
+                        </tr>
+
+                        <!-- Case 2 -->
+                        <tr class="hover:bg-primary-800/50 transition-colors">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="font-mono text-sm text-secondary-400">FC-2025-001846</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
+                                Sep 18, 2025
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-primary">
+                                Route Manipulation
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="text-warning-400 font-semibold">76/100</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="bg-success-900/20 text-success-400 px-2 py-1 rounded-full text-xs">Resolved</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-primary">
+                                $12,800
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                <button class="text-secondary-400 hover:text-secondary-300 mr-3">View</button>
+                                <button class="text-success-400 hover:text-success-300">Archive</button>
+                            </td>
+                        </tr>
+
+                        <!-- Case 3 -->
+                        <tr class="hover:bg-primary-800/50 transition-colors">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="font-mono text-sm text-secondary-400">FC-2025-001845</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
+                                Sep 17, 2025
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-primary">
+                                Identity Theft
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="text-error-400 font-semibold">88/100</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="bg-error-900/20 text-error-400 px-2 py-1 rounded-full text-xs">Critical</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-primary">
+                                $67,500
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                <button class="text-secondary-400 hover:text-secondary-300 mr-3">View</button>
+                                <button class="text-error-400 hover:text-error-300">Escalate</button>
+                            </td>
+                        </tr>
+
+                        <!-- Case 4 -->
+                        <tr class="hover:bg-primary-800/50 transition-colors">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="font-mono text-sm text-secondary-400">FC-2025-001844</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
+                                Sep 17, 2025
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-primary">
+                                Cargo Substitution
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="text-secondary-400 font-semibold">54/100</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="bg-secondary-900/20 text-secondary-400 px-2 py-1 rounded-full text-xs">Pending Review</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-primary">
+                                $8,900
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                <button class="text-secondary-400 hover:text-secondary-300 mr-3">View</button>
+                                <button class="text-warning-400 hover:text-warning-300">Assign</button>
+                            </td>
+                        </tr>
+
+                        <!-- Case 5 -->
+                        <tr class="hover:bg-primary-800/50 transition-colors">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="font-mono text-sm text-secondary-400">FC-2025-001843</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
+                                Sep 16, 2025
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-primary">
+                                Payment Fraud
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="text-success-400 font-semibold">32/100</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="bg-success-900/20 text-success-400 px-2 py-1 rounded-full text-xs">Closed</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-text-primary">
+                                $3,200
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                <button class="text-secondary-400 hover:text-secondary-300 mr-3">View</button>
+                                <button class="text-text-secondary">Archived</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="px-6 py-4 border-t border-primary-600">
+                <div class="flex items-center justify-between">
+                    <div class="text-sm text-text-secondary">
+                        Showing 1-5 of 247 cases
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button class="px-3 py-1 text-sm bg-surface text-text-secondary rounded-md hover:bg-primary-600 transition-colors border border-primary-600">
+                            Previous
+                        </button>
+                        <button class="px-3 py-1 text-sm bg-secondary-600 text-white rounded-md">1</button>
+                        <button class="px-3 py-1 text-sm bg-surface text-text-secondary rounded-md hover:bg-primary-600 transition-colors border border-primary-600">2</button>
+                        <button class="px-3 py-1 text-sm bg-surface text-text-secondary rounded-md hover:bg-primary-600 transition-colors border border-primary-600">3</button>
+                        <button class="px-3 py-1 text-sm bg-surface text-text-secondary rounded-md hover:bg-primary-600 transition-colors border border-primary-600">
+                            Next
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-surface border-t border-primary-600 px-6 py-4 mt-8">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between space-y-2 md:space-y-0">
+            <div class="text-sm text-text-secondary">
+                © 2025 ShipGuard Analytics. All Rights Reserved.
+            </div>
+            <div class="flex items-center space-x-4 text-sm text-text-secondary">
+                <span>Last Data Refresh: 13:06:37 UTC</span>
+                <span>•</span>
+                <span>Next Update: 13:36:37 UTC</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Interactive Features -->
+    <script>
+        // Heat map hover interactions
+        document.querySelectorAll('[title]').forEach(cell => {
+            cell.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.1)';
+                this.style.zIndex = '10';
+            });
+            
+            cell.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+                this.style.zIndex = 'auto';
+            });
+        });
+
+        // Filter change handlers
+        document.querySelectorAll('select').forEach(select => {
+            select.addEventListener('change', function() {
+                // Simulate data refresh
+                const metrics = document.querySelectorAll('.text-2xl');
+                metrics.forEach(metric => {
+                    metric.style.opacity = '0.5';
+                    setTimeout(() => {
+                        metric.style.opacity = '1';
+                    }, 300);
+                });
+            });
+        });
+
+        // Table row interactions
+        document.querySelectorAll('tbody tr').forEach(row => {
+            row.addEventListener('click', function(e) {
+                if (e.target.tagName !== 'BUTTON') {
+                    this.classList.toggle('bg-secondary-900/20');
+                }
+            });
+        });
+
+        // Bookmark functionality
+        document.querySelector('[title="Bookmark"]')?.addEventListener('click', function() {
+            this.classList.toggle('text-warning-500');
+            this.classList.toggle('text-text-secondary');
+        });
+
+        // Auto-refresh timestamp
+        function updateTimestamp() {
+            const now = new Date();
+            const timeString = now.toTimeString().split(' ')[0];
+            document.querySelectorAll('[data-timestamp]').forEach(el => {
+                el.textContent = timeString + ' UTC';
+            });
+        }
+
+        // Update every 30 seconds to simulate real-time data
+        setInterval(updateTimestamp, 30000);
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateTimestamp();
+        });
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>
